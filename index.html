@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Certificate Viewer</title>
+<style>
+  body{font-family:Arial,Helvetica,sans-serif;background:#f4f6f8;margin:0;
+       display:flex;min-height:100vh;align-items:center;justify-content:center;color:#222}
+  .card{background:#fff;max-width:520px;width:92%;padding:34px 30px;border-radius:14px;
+        box-shadow:0 8px 30px rgba(0,0,0,.08);text-align:center}
+  h1{font-size:20px;margin:0 0 10px}
+  p{color:#555;line-height:1.55;margin:8px 0;font-size:15px}
+  .qr{font-size:44px;margin-bottom:6px}
+  img{max-width:100%;border:1px solid #e3e6ea;border-radius:8px;margin-top:14px}
+  .hint{font-size:13px;color:#888;margin-top:16px}
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="qr">📄</div>
+    <h1>Certificate Viewer</h1>
+    <p>To view a certificate, <strong>scan the QR code</strong> printed on it
+       with your phone camera. It will open that certificate here.</p>
+    <p id="status"></p>
+    <div id="viewer"></div>
+    <p class="hint">Government of Telangana &middot; Minorities Welfare &middot;
+       TGMFC skill certificates</p>
+  </div>
+<script>
+  // Optional: support .../?c=<filename> to preview a certificate directly.
+  (function(){
+    var f = new URLSearchParams(location.search).get('c');
+    if(!f) return;
+    if(!/^[A-Za-z0-9._-]+\.(png|jpg|jpeg|webp)$/.test(f)) return;
+    var img = new Image();
+    img.alt = f;
+    img.src = 'img/' + f;
+    img.onload = function(){ document.getElementById('viewer').appendChild(img);
+      document.getElementById('status').textContent = 'Showing: ' + f; };
+    img.onerror = function(){ document.getElementById('status').textContent =
+      'Certificate not found: ' + f; };
+  })();
+</script>
+</body>
+</html>

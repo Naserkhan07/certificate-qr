@@ -1,7 +1,0 @@
-# keep real certificate images out of the code history if you prefer;
-# to publish, explicitly add them:  git add -f <file>.png
-*.png
-*.jpg
-*.jpeg
-*.webp
-!.gitkeep
